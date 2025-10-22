@@ -5,7 +5,7 @@ import Project from './Project';
 const Projects = () => {
   const projectsData = [
     {
-      image: 'accessSTL.jpeg',
+      image: 'accessSTL.webp',
       shortDescription: 'President',
       title: 'AccessSTL - WashU Transportation Club',
       longDescription:
@@ -15,7 +15,7 @@ const Projects = () => {
       size: 'xl',
     },
     {
-      image: 'washaveParklet.jpeg',
+      image: 'washaveParklet.webp',
       shortDescription: 'Reimagining the streets of St. Louis',
       title: 'WashAve Parking Day',
       longDescription:
@@ -45,7 +45,7 @@ const Projects = () => {
       size: 'sm',
     },
     {
-      image: 'forestPark.jpeg',
+      image: 'forestPark.webp', 
       shortDescription: 'Facilitating conversations about the built environment in St. Louis\' flagship park',
       title: 'Forest Park Walking Audit',
       longDescription:
