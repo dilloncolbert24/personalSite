@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-const headshot = './bayWheels_image.webp';
+const headshot = '/bayWheels_image.webp';
 
 const MODE_OPTIONS = ['Walk', 'Bike', 'Transit', 'Car', 'Rideshare', 'Other'];
 
