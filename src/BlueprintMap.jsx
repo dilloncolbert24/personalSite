@@ -86,8 +86,8 @@ const places = [
       "Where it all started — my roots in a small town shaped how I see the connection between community and built environment.",
     images: [
       { src: "/pw-troy-1909.jpg", caption: "Troy in 1909. Historic downtowns are super fascinating to me now, especially since it's impossible to build them with current regulation in most places. My work in parking reform addresses this.", color: "#ff6600" },
-      { src: "/creek.png", caption: "This creek near my house grew my environmental connection with water. I  attribute my fascination with the Mississippi and working with stormwater management to it.", color: "#ff6600" },
-      { src: "/driveway.png", caption: "A nice wooded walk across from my house set a high standard for green space in my life.", color: "#ff6600" }
+      { src: "/creek.webp", caption: "This creek near my house grew my environmental connection with water. I  attribute my fascination with the Mississippi and working with stormwater management to it.", color: "#ff6600" },
+      { src: "/driveway.webp", caption: "A nice wooded walk across from my house set a high standard for green space in my life.", color: "#ff6600" }
     ],
     markerIcon: makeMarkerFromReactIcon(FaHouseChimney, { size: 44, color: "#000000" }),
   },
@@ -112,9 +112,9 @@ const places = [
     description:
       "I used the subway and buses for transport and was captivated by adaptive reuses like the High Line and Dumbo, BK.",
     images: [
-      { src: "/highLine.png", caption: "The High Line" },
-      { src: "/pedPath_Manhattan.png", caption: "Pedestrian path", color: "#000000",
-        src: "/pedPath_Manhattan.png", caption: "Pedestrian path", color: "#000000" },
+      { src: "/highLine.webp", caption: "The High Line" },
+      { src: "/pedPath_Manhattan.webp", caption: "Pedestrian path", color: "#000000",
+        src: "/NYCmultimodal.webp", caption: "The organized chaos of Manhattan's streets: 5th Ave & W 55th St in December 2024", color: "#000000" },
     ],
     markerIcon: makeMarkerFromReactIcon(SiMta, { size: 44, color: "#08179C" }),
   },
