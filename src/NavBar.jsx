@@ -84,8 +84,10 @@ const NavBar = () => {
   return (
     <div className="fixed top-0 left-0 w-full z-20 pt-2">
       <div className="max-w-screen-xl mx-auto px-2">
-        <div className="relative bg-[#0a0b1d]/70 backdrop-blur-md rounded-lg shadow-lg overflow-hidden">
+        {/* change: overflow-visible on mobile to avoid clipping; keep original overflow-hidden from md+ */}
+        <div className="relative bg-[#0a0b1d]/70 backdrop-blur-md rounded-lg shadow-lg overflow-visible md:overflow-hidden">
           <div className="flex items-center gap-3 px-3 py-1 relative">
+            {/* Initials badge */}
             <a
               href="#top"
               className="w-12 h-12 rounded-full bg-[#38b000] flex items-center justify-center text-white font-bold text-lg shadow-md select-none z-10"
@@ -94,6 +96,7 @@ const NavBar = () => {
               DC
             </a>
 
+            {/* Track with skyline image and road — DO NOT CHANGE */}
             <div className="relative flex-1 hidden md:block pointer-events-none h-24 overflow-visible self-center">
               <div
                 className="skyline-img"
@@ -106,7 +109,9 @@ const NavBar = () => {
               </div>
             </div>
 
+            {/* Right cluster: nav tiles + Résumé */}
             <div className="hidden md:flex items-start gap-2 relative z-10 ml-auto">
+              {/* Nav tiles */}
               <nav className="flex flex-wrap items-center gap-2 justify-end">
                 {NAV_ITEMS.map(({ label, href, Icon, external }) => (
                   <a
@@ -127,6 +132,7 @@ const NavBar = () => {
                 ))}
               </nav>
 
+              {/* Résumé */}
               <div className="flex flex-col items-end gap-2">
                 <a
                   href="/resume.pdf"
@@ -138,10 +144,13 @@ const NavBar = () => {
                 </a>
               </div>
 
+              {/* Compact Now Playing at the far right */}
               <NowPlayingStatic />
             </div>
 
+            {/* Mobile toggle */}
             <button
+              type="button"
               onClick={toggleMenu}
               className="md:hidden ml-auto flex items-center justify-center w-10 h-10 rounded border border-white/70 text-white hover:text-[#38b000] hover:border-[#38b000] transition"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -158,6 +167,7 @@ const NavBar = () => {
             </button>
           </div>
 
+          {/* Mobile dropdown */}
           {isMenuOpen && (
             <div className="md:hidden flex flex-col items-stretch gap-2 px-3 pb-4">
               {NAV_ITEMS.map(({ label, href, Icon, external }) => (
@@ -186,6 +196,7 @@ const NavBar = () => {
                 <span className="uppercase">DOWNLOAD RESUME</span>
               </a>
 
+              {/* Compact Now Playing */}
               <div className="mt-1">
                 <NowPlayingStatic />
               </div>
@@ -194,6 +205,7 @@ const NavBar = () => {
         </div>
       </div>
 
+      {/* Styles used by buttons and visuals */}
       <style>{`
         :root {
           --cyclist-w: 80px;
@@ -215,6 +227,7 @@ const NavBar = () => {
           border-color: rgba(56,176,0,0.9);
         }
 
+        /* SKYLINE — do not change */
         .skyline-img {
           position: absolute;
           inset: 0;
@@ -232,7 +245,11 @@ const NavBar = () => {
           width: 100%;
           height: var(--road-h);
           z-index: 4;
+
+          /* green bike-lane surface */
           background-color: #38b000;
+
+          /* thin white edge lines (top & bottom) */
           background-image: linear-gradient(
             to bottom,
             #ffffff 2px,
@@ -250,11 +267,11 @@ const NavBar = () => {
           top: 50%;
           transform: translateY(-50%);
           width: 100%;
-          height: 1.5px;
+          height: 1.5px; /* thin center stripe */
           background-image: repeating-linear-gradient(
             to right,
-            #ffd700 0 8px,
-            transparent 8px 20px
+            #ffd700 0 8px,      /* dash length */
+            transparent 8px 20px /* gap */
           );
           pointer-events: none;
         }
