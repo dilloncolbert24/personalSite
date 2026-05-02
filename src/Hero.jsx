@@ -144,9 +144,9 @@ const Hero = () => {
               </h1>
 
               <p className="mt-4 sm:mt-6 md:mt-8 mb-6 sm:mb-8 md:mb-10 text-[13px] sm:text-sm md:text-base max-w-2xl text-center leading-relaxed opacity-90">
-                College graduate actively researching sustainable transportation,
-                transit-oriented development, parking reform, and green infrastructure,
-                among other urbanism-related solutions in the public realm.
+                Masters student in Urban Data Science actively researching sustainable transportation,
+                transit-oriented development, and parking reform,
+                among other urban solutions in the public realm.
                 With a background in Environmental Engineering, I work to decarbonize the transportation sector and reimagine how cities are designed.
                 <i><b>
                   <br /><br />

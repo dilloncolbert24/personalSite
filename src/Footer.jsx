@@ -13,7 +13,7 @@ const FOOTER_LINK_GROUPS = [
     title: 'My Organizations',
     links: [
       { label: 'Downtown Neighborhood Association', href: 'https://saintlouisdna.org/' },
-      { label: 'Laclede\'s Landing Main Street', href: 'https://www.lacledeslanding.com/about/mo-main-street/' },
+      { label: "Laclede's Landing Main Street", href: 'https://www.lacledeslanding.com/about/mo-main-street/' },
       { label: 'STL Urbanists', href: 'https://stlurbanists.org/' },
       { label: 'Strong Towns', href: 'https://www.strongtowns.org/local' },
       { label: 'Trailnet', href: 'https://trailnet.org/' },
@@ -22,7 +22,7 @@ const FOOTER_LINK_GROUPS = [
   {
     title: 'Policy & Data',
     links: [
-      { label: 'Parking Reform Network}', href: 'https://www.bts.gov' },
+      { label: 'Parking Reform Network', href: 'https://www.bts.gov' },
       { label: 'NACTO', href: 'https://mutcd.fhwa.dot.gov' },
       { label: 'ITDP', href: 'https://itdp.org' },
       { label: 'NHTS', href: 'https://nhts.ornl.gov' },
@@ -59,7 +59,6 @@ const ExternalFooterLink = ({ href, children }) => (
     className="inline-flex items-center gap-1.5 text-white/90 hover:text-white underline-offset-4 hover:underline"
   >
     <span>{children}</span>
-    {/* external icon removed to keep things cleaner here; add if you want */}
   </a>
 );
 
@@ -107,9 +106,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#0a0b1d] pt-8 md:pt-16 relative z-40 isolate pointer-events-auto" id="contact">
       <div className="container max-w-screen-xl mx-auto px-4">
-        {/* Upper band: Left = Title + Headshot, Right = Poll */}
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-10 md:gap-14">
-          {/* LEFT: Title + Headshot + email (centered under photo) */}
           <div className="order-1 flex flex-col items-center text-center gap-4 md:gap-6">
             <span className="text-4xl md:text-7xl text-white border-b-4 border-[#8544ff] font-bold pb-1">
               Connect with me!
@@ -128,9 +125,21 @@ const Footer = () => {
               />
             </a>
 
-            <span className="inline-flex items-center text-[11px] md:text-xs px-2 py-0.5 rounded-full bg-[#8544ff] text-white shadow whitespace-nowrap">
-              Click photo to email me
-            </span>
+            {/* Combined button group */}
+            <div className="flex flex-col items-center gap-2">
+              <span className="inline-flex items-center text-[11px] md:text-xs px-2 py-0.5 rounded-full bg-[#8544ff] text-white shadow whitespace-nowrap">
+                Click photo to email me
+              </span>
+              
+              <a 
+                href="https://www.linkedin.com/in/dillon-colbert-50987b1a0/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-[11px] md:text-xs px-2 py-0.5 rounded-full bg-[#8544ff] text-white shadow whitespace-nowrap hover:bg-[#8544ff]/80 transition-colors"
+              >
+                LinkedIn Profile
+              </a>
+            </div>
 
             <p className="text-white/70 text-sm">
               Or email:{" "}
@@ -140,7 +149,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* RIGHT: Poll (even spacing between headshot and page edge) */}
           <div className="order-2 flex-1 min-w-0 w-full md:ml-12 lg:ml-16 xl:ml-20 max-w-3xl">
             <p className="text-lg md:text-xl text-white mb-2">
               How did you get to work today?
@@ -199,7 +207,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Lower band: link lists */}
         <div className="mt-12 md:mt-16 border-t border-white/10 pt-8 md:pt-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
             {FOOTER_LINK_GROUPS.map(({ title, links }) => (
@@ -221,7 +228,7 @@ const Footer = () => {
             ))}
           </div>
 
-        <div className="mt-10 text-white/50 text-sm">
+          <div className="mt-10 text-white/50 text-sm">
             © {new Date().getFullYear()} Dillon Colbert. Designed in Visual Studio Code.
           </div>
         </div>

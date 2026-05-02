@@ -19,7 +19,7 @@ const ZOTERO_URL =
 const NAV_ITEMS = [
   { label: "MAP", href: "#blueprint", Icon: FaMap },
   { label: "PROJECTS", href: "#projects", Icon: FaCity },
-  { label: "CONTACT", href: "#contact", Icon: FaEnvelope },
+  { label: "CONNECT", href: "#contact", Icon: FaEnvelope },
 ];
 
 const SKYLINE_IMG = "/skyline.png";
