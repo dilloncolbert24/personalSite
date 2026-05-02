@@ -26,7 +26,7 @@ const Projects = () => {
       size: 'lg',
     },
     {
-      image: '/GWS.jpeg',
+      image: '/GWS.webp',
       shortDescription: 'Community Design Research',
       title: 'Gateway South Redevelopment',
       longDescription:
