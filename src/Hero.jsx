@@ -101,7 +101,7 @@ const Hero = () => {
       `}</style>
 
       {/* 2. Set opacity and z-index to keep the video in the background */}
-      <<video
+      <video
   ref={videoRef}
   className="z-0 no-controls absolute inset-0 h-full w-full object-cover pointer-events-none select-none opacity-50"
   autoPlay
