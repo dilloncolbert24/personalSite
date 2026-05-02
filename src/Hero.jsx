@@ -101,21 +101,21 @@ const Hero = () => {
       `}</style>
 
       {/* 2. Set opacity and z-index to keep the video in the background */}
-      <video
-        ref={videoRef}
-        className="z-0 no-controls absolute inset-0 h-full w-full object-cover pointer-events-none select-none opacity-50"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        controls={false}
-        disablePictureInPicture
-        aria-hidden="true"
-      >
-        <source src="/trainVideo.webm" type="video/webm" />
-        <source src="/trainVideo.mp4" type="video/mp4" />
-      </video>
+      <<video
+  ref={videoRef}
+  className="z-0 no-controls absolute inset-0 h-full w-full object-cover pointer-events-none select-none opacity-50"
+  autoPlay
+  loop
+  muted
+  playsInline
+  preload="auto"
+  controls={false}
+  disablePictureInPicture
+  aria-hidden="true"
+>
+  {/* The leading "/" is crucial for Cloudflare to find the file */}
+  <source src="/trainVideo.mp4" type="video/mp4" />
+</video>
 
       {/* 3. Dark overlay to ensure white text is readable against a busy video */}
       <div className="absolute inset-0 bg-black/30 z-10 pointer-events-none" />
