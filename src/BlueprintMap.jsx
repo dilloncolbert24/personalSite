@@ -85,23 +85,28 @@ const places = [
     description:
       "Where it all started — my roots in a small town shaped how I see the connection between community and built environment.",
     images: [
-      { src: "/pw-troy-1909.jpg", caption: "Troy in 1909. Historic downtowns are super fascinating to me now, especially since it's impossible to build them with current regulation in most places. My work in parking reform addresses this.", color: "#ff6600" },
-      { src: "/creek.webp", caption: "This creek near my house grew my environmental connection with water. I  attribute my fascination with the Mississippi and working with stormwater management to it.", color: "#ff6600" },
-      { src: "/driveway.webp", caption: "A nice wooded walk across from my house set a high standard for green space in my life.", color: "#ff6600" }
+      { src: "/pw-troy-1909.jpg", caption: "Troy in 1909. Historic downtowns are super fascinating to me now, especially since it's impossible to build them with current regulation in most places. My work in parking reform addresses this.", color: "#000000" },
+      { src: "/creek.webp", caption: "This creek near my house grew my environmental connection with water. I  attribute my fascination with the Mississippi and working with stormwater management to it.", color: "#00000" },
+      { src: "/driveway.webp", caption: "A nice wooded walk across from my house set a high standard for green space in my life.", color: "#000000" }
     ],
     markerIcon: makeMarkerFromReactIcon(FaHouseChimney, { size: 44, color: "#000000" }),
   },
   {
     id: 1,
     coords: [38.627, -90.199],
-    title: "St. Louis, MO",
-    date: "2022–Present",
+    title: "Downtown St. Louis, MO",
+    date: "May 2025–Present",
     description:
-      "Organized Parking Day, coordinated nonprofits and local leaders. Helped shape my focus on tactical urbanism and public space design.",
-    images: [
-      { src: "/images/stl.jpg", caption: "Downtown St. Louis" },
-      { src: "/images/stl2.jpg", caption: "Public space activation", color: "#00ccff" },
-    ],
+      "After graduating, I moved Downtown to live car-free/car light. I'm now able to walk, bike, or take public transit for a majority of trips. Topics I'm currently researching in Downtown are urban growth models, parking reform, and highway removal.",
+      images: [
+        { src: "/riverfrontParking.webp", caption: "Rivefront inactivation is a major issue in St. Louis, where much of its historic levee and postindustrial land sits vacant and underutilized.", color: "#000000" },
+        { src: "/archDivide.webp", caption: "I-44 rips through Downtown, dividing the Arch Grounds and the rest of Downtown. Many cities have explored highway removal or rerouting, and I believe St. Louis could follow suit.", color: "#000000"},
+        { src: "/11th&locust.webp", caption: "Off-street parking makes up 27% of St. Louis's central city, according to the Parking Reform Network's Parking Lot Map.", color: "#000000"},
+        { src: "/metroLL.webp", caption: "Housed inside the Eads Bridge, the oldest steel-frame bridge in the world, Laclede's Landing Metrolink station has one of my favorite views of the Arch.", color: "#000000"},
+        { src: "/jazz.webp", caption: "Laclede's Landing, a historic district in Downtown with a rich music history, has a phenomenal amount of potential. I hosted this jazz jam through my club in Summer 2025, with the first being in Oct 2024. I am now volunteering in the district's design committee. ", color: "#000000"},
+        { src: "/sundeckers.webp", caption: "Even Mission Dolores Park, not even in the top 5 largest municipal parks in San Francisco, was incredibly busy on a non-event day.", color: "#000000"},
+        { src: "/cityMuseumLot.webp", caption: "Even Mission Dolores Park, not even in the top 5 largest municipal parks in San Francisco, was incredibly busy on a non-event day.", color: "#000000"}
+      ],
     markerIcon: makeMarkerFromReactIcon(FaMapPin, { size: 44, color: "#ef4444" }),
   },
   {
@@ -125,7 +130,11 @@ const places = [
     date: "2020",
     description:
       "Observed parklet culture and strong BRT planning efforts. Influenced my ideas for people-first streets in St. Louis.",
-    images: [{ src: "/images/sf.jpg", caption: "SF Parklet" }],
+    images: [
+      { src: "/strawberryHill.webp", caption: "Golden Gate Park, one of the truest urban forests I've ever seen. A true flagship park and receiving of my highest praise.", color: "#000000" },
+      { src: "/salesforcePark.webp", caption: "Salesforce Park, an elevated urban park in Downtown San Francisco. This park defies the typical definition of urban green space and provides an excellent third space for residents, employees, and visitors alike.", color: "#000000"},
+      { src: "/missionDolores.webp", caption: "Even Mission Dolores Park, not even in the top 5 largest municipal parks in San Francisco, was incredibly busy on a non-event day.", color: "#000000"}
+    ],
     markerIcon: makeMarkerFromReactIcon(MdDirectionsWalk, { size: 44, color: "#FF4F00" }),
   },
   {
@@ -134,8 +143,14 @@ const places = [
     title: "Ciudad de Mexico, MX",
     date: "2019",
     description:
-      "Studied vibrant public spaces and multimodal systems, which shaped my thinking on equitable urban mobility.",
-    images: [{ src: "/images/mexico.jpg", caption: "Zócalo, Mexico City" }],
+      "CDMX is alive, exuding energy, vibrancy, and the volume of foot traffic to match. It does so through fantastic outdoor dining, public squares, cafe culture, and live music, among many factors. I rode my first BRT line here, and it just so happens that theirs is world class.",
+      images: [
+        { src: "/reforma.webp", caption: "Paseo de la Reforma, the main artery of CDMX, closes to cars every Sunday.", color: "#000000" },
+        { src: "/reformaAerial.webp", caption: "Here is a better view of Paseo de la Reforma from the Chapultepec Castle.", color: "#000000"},
+        { src: "/centroHistorico.webp", caption: "The historic center began construction in 1521 and functions similarly to many European city centers. Here is where a lot of political activism, cultural displays, and tourism exist.", color: "#000000"},
+        { src: "/bikingCDMX.webp", caption: "I frequently used Ecobici, CDMX's public (so impressive) bikeshare system to get around. It's relatively inexpensive and has great access throughout the city.", color: "#000000"},
+        { src: "/brtCDMX.webp", caption: "The CDMX BRT system is among the best I've used or studied in the world. Many of the lines have 2 minute headways with fully dedicated corridors and are absolutely spotless.", color: "#000000"},
+      ],
     markerIcon: makeMarkerFromReactIcon(FaBusAlt, { size: 44, color: "#F245A1" }),
   },
   {
@@ -144,11 +159,11 @@ const places = [
     title: "Vancouver, BC, CA",
     date: "2025",
     description:
-      "Saw the benefits of people-first urban design and strong cycling infrastructure.",
+      "A true city of new urbanism. Much of the architecture was modern, which I'm not as fond of as historic, but everything was designed so intentionally for the human scale. ",
     images: [
-      { src: "/vancouverParklet.png", caption: "Vancouver parklet" },
-      { src: "/vancouver_bikeStreet.png", caption: "Bike-priority street" },
-      { src: "/vancouverBikeshare.png", caption: "Bike share station" },
+      { src: "/vancouverParklet.webp", caption: "Vancouver parklet" , color: "#000000"},
+      { src: "/vancouver_bikeStreet.webp", caption: "Bike-priority street" , color: "#000000"},
+      { src: "/vancouverBikeshare.webp", caption: "Bike share station" , color: "#000000"},
     ],
     markerIcon: makeMarkerFromReactIcon(LuCircleParkingOff, { size: 44, color: "#000000" }),
   },
@@ -159,7 +174,7 @@ const places = [
     date: "May/June 2023",
     description:
       "Learned from Singapore’s transport integration and public space planning.",
-    images: [{ src: "/singapore.jpg", caption: "Singapore streetscape" }],
+    images: [{ src: "/singapore.jpg", caption: "Singapore streetscape", color: "#000000" }],
     markerIcon: makeMarkerFromReactIcon(PiPlantBold, { size: 44, color: "#097969" }),
   },
   {
@@ -169,13 +184,13 @@ const places = [
     date: "Feb 2019, Mar 2024",
     description:
       "My desire for walkability and bikeability originated here.",
-    images: [{ src: "/images/amsterdam.jpg", caption: "Cycling culture" }],
+    images: [{ src: "/images/amsterdam.jpg", caption: "Cycling culture", color: "#000000" }],
     markerIcon: makeMarkerFromReactIcon(MdDirectionsBike, { size: 44, color: "#003DA5" }),
   },
 ];
 
 /* Slideshow */
-const Slideshow = ({ images, interval = 4000 }) => {
+const Slideshow = ({ images, interval = 5000 }) => {
   const [index, setIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

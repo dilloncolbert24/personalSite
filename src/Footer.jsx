@@ -10,23 +10,22 @@ function makeMonthKey(d = new Date()) {
 /* Link lists (edit to your taste) */
 const FOOTER_LINK_GROUPS = [
   {
-    title: 'Organizations',
+    title: 'My Organizations',
     links: [
-      { label: 'NACTO', href: 'https://nacto.org' },
-      { label: 'Strong Towns', href: 'https://www.strongtowns.org' },
-      { label: 'TransitCenter', href: 'https://transitcenter.org' },
-      { label: 'Rails-to-Trails Conservancy', href: 'https://www.railstotrails.org' },
-      { label: 'PeopleForBikes', href: 'https://www.peopleforbikes.org' },
+      { label: 'Downtown Neighborhood Association', href: 'https://saintlouisdna.org/' },
+      { label: 'Laclede\'s Landing Main Street', href: 'https://www.lacledeslanding.com/about/mo-main-street/' },
+      { label: 'STL Urbanists', href: 'https://stlurbanists.org/' },
+      { label: 'Strong Towns', href: 'https://www.strongtowns.org/local' },
+      { label: 'Trailnet', href: 'https://trailnet.org/' },
     ],
   },
   {
     title: 'Policy & Data',
     links: [
-      { label: 'USDOT BTS', href: 'https://www.bts.gov' },
-      { label: 'FHWA MUTCD', href: 'https://mutcd.fhwa.dot.gov' },
-      { label: 'EPA MOVES', href: 'https://www.epa.gov/moves' },
+      { label: 'Parking Reform Network}', href: 'https://www.bts.gov' },
+      { label: 'NACTO', href: 'https://mutcd.fhwa.dot.gov' },
+      { label: 'ITDP', href: 'https://itdp.org' },
       { label: 'NHTS', href: 'https://nhts.ornl.gov' },
-      { label: 'OpenStreetMap', href: 'https://www.openstreetmap.org' },
     ],
   },
   {
@@ -40,7 +39,7 @@ const FOOTER_LINK_GROUPS = [
     ],
   },
   {
-    title: 'Local / STL',
+    title: 'STL',
     links: [
       { label: 'Metro Transit', href: 'https://www.metrostlouis.org' },
       { label: 'Trailnet', href: 'https://trailnet.org' },
