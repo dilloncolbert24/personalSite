@@ -7,7 +7,7 @@ const Hero = () => {
   const [error, setError] = useState(null);
   const videoRef = useRef(null);
 
-  const maxScale = 2.0; // upper bound for the display in °C
+  const maxScale = 2.0; 
 
   const extractLatestAnomaly = (data) => {
     try {
@@ -23,9 +23,7 @@ const Hero = () => {
           if (Number.isFinite(v)) return v;
         }
       }
-      if (typeof data?.global === 'number') return data.global;
-      if (typeof data?.current === 'number') return data.current;
-      return null;
+      return typeof data?.global === 'number' ? data.global : (typeof data?.current === 'number' ? data.current : null);
     } catch {
       return null;
     }
@@ -74,27 +72,17 @@ const Hero = () => {
       stopped = true;
       clearInterval(daily);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Nudge autoplay reliably across browsers (esp. iOS Safari)
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-
     const ensurePlay = () => {
       const p = v.play?.();
-      if (p && typeof p.then === 'function') {
-        p.catch(() => {
-          // If autoplay is still blocked, we still avoid showing controls.
-          // No-op: background video is purely decorative.
-        });
-      }
+      if (p && typeof p.then === 'function') p.catch(() => {});
     };
-
     if (v.readyState >= 2) ensurePlay();
     else v.addEventListener('loadeddata', ensurePlay, { once: true });
-
     return () => v.removeEventListener?.('loadeddata', ensurePlay);
   }, []);
 
@@ -102,20 +90,20 @@ const Hero = () => {
     window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
   };
 
-  const percent =
-    warmingC !== null ? Math.max(0, Math.min(100, (warmingC / maxScale) * 100)) : 0;
+  const percent = warmingC !== null ? Math.max(0, Math.min(100, (warmingC / maxScale) * 100)) : 0;
 
   return (
-    <div className="relative min-h-[100svh] w-full overflow-hidden" id="hero">
-      {/* Hide any native control chrome defensively */}
+    /* 1. Added bg-[#0a0b1d] so the site looks good even without the video */
+    <div className="relative min-h-[100svh] w-full overflow-hidden bg-[#0a0b1d]" id="hero">
       <style>{`
         video.no-controls::-webkit-media-controls { display: none !important; }
         video.no-controls::-webkit-media-controls-enclosure { display: none !important; }
       `}</style>
 
+      {/* 2. Set opacity and z-index to keep the video in the background */}
       <video
         ref={videoRef}
-        className="no-controls absolute inset-0 h-full w-full object-cover pointer-events-none select-none"
+        className="z-0 no-controls absolute inset-0 h-full w-full object-cover pointer-events-none select-none opacity-50"
         autoPlay
         loop
         muted
@@ -123,97 +111,68 @@ const Hero = () => {
         preload="auto"
         controls={false}
         disablePictureInPicture
-        controlsList="nodownload noplaybackrate noremoteplayback nofullscreen"
         aria-hidden="true"
-        onContextMenu={(e) => e.preventDefault()}
-        poster="trainPoster.jpg"
       >
-        {/* Provide both sources; Safari prefers MP4, others may pick WebM */}
-        <source src="trainVideo.webm" type="video/webm" />
-        <source src="trainVideo.mp4" type="video/mp4" />
+        <source src="/trainVideo.webm" type="video/webm" />
+        <source src="/trainVideo.mp4" type="video/mp4" />
       </video>
 
-      {/* Content */}
-      <div className="absolute inset-0 text-white">
+      {/* 3. Dark overlay to ensure white text is readable against a busy video */}
+      <div className="absolute inset-0 bg-black/30 z-10 pointer-events-none" />
+
+      <div className="z-20 relative h-full w-full text-white">
         <div className="mx-auto h-full max-w-5xl px-3 sm:px-4">
-          <div className="grid h-full grid-rows-[1fr_auto_1fr]">
+          <div className="grid h-full grid-rows-[1fr_auto_1fr] min-h-[100svh]">
             <div />
+            
             <div className="flex flex-col items-center">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 sm:mb-8 md:mb-10 text-center leading-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 text-center leading-tight">
                 Dillon Colbert
               </h1>
 
-              <p className="mt-4 sm:mt-6 md:mt-8 mb-6 sm:mb-8 md:mb-10 text-[13px] sm:text-sm md:text-base max-w-2xl text-center leading-relaxed opacity-90">
+              <p className="mt-4 sm:mt-6 mb-6 text-sm md:text-base max-w-2xl text-center leading-relaxed opacity-95">
                 Masters student in Urban Data Science actively researching sustainable transportation,
-                transit-oriented development, and parking reform,
-                among other urban solutions in the public realm.
-                With a background in Environmental Engineering, I work to decarbonize the transportation sector and reimagine how cities are designed.
+                transit-oriented development, and parking reform. With a background in Environmental Engineering, 
+                I work to decarbonize the transportation sector and reimagine how cities are designed.
+                <br /><br />
                 <i><b>
-                  <br /><br />
-                  <span
-                    className="inline-block px-2 sm:px-2.5 py-0.5 rounded-md bg-black/55 backdrop-blur-sm ring-1 ring-black/50 shadow-[0_2px_8px_rgba(0,0,0,0.6)] text-[#ff2d55]"
-                    style={{
-                      WebkitTextStroke: '0.6px rgba(0,0,0,0.6)',
-                      textShadow: '0 1px 2px rgba(0,0,0,0.8)',
-                    }}
-                  >
+                  <span className="inline-block px-3 py-1 rounded-md bg-black/60 backdrop-blur-md ring-1 ring-white/10 shadow-xl text-[#ff2d55]">
                     There is no time to wait. Let&apos;s design cities for people, not cars.
                   </span>
                 </b></i>
               </p>
 
-              {/* Global warming indicator */}
-              <div className="mt-8 sm:mt-10 md:mt-8 w-full flex flex-col items-center">
-                <div className="backdrop-blur-sm bg-white/10 border border-white/15 rounded-2xl px-4 py-3 shadow-lg max-w-md w-full">
+              {/* Climate Widget */}
+              <div className="mt-8 w-full flex flex-col items-center">
+                <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl px-4 py-3 shadow-2xl max-w-md w-full">
                   <div className="flex items-end justify-between text-[10px] sm:text-xs opacity-90">
                     <span>0°C</span>
                     <span>{maxScale.toFixed(1)}°C</span>
                   </div>
-
-                  <div className="relative mt-1 h-2 rounded-full overflow-hidden bg-gray-700">
+                  <div className="relative mt-1 h-2 rounded-full overflow-hidden bg-gray-800">
                     <div className="absolute inset-0 bg-gradient-to-r from-sky-400 via-amber-300 to-rose-500 opacity-90" />
                     <div
                       className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2"
                       style={{ left: `${percent}%` }}
-                      aria-hidden="true"
                     >
                       <div className="h-4 w-[2px] bg-white shadow-[0_0_6px_rgba(255,255,255,0.8)]" />
                     </div>
                   </div>
-
                   <div className="mt-2 flex items-center justify-between text-[10px] sm:text-xs">
-                    <span className="opacity-80">
-                      Global warming since pre-industrial (latest monthly)
-                    </span>
+                    <span className="opacity-80">Global warming (latest monthly)</span>
                     <span className="font-semibold">
-                      {isLoading && warmingC == null
-                        ? 'Loading…'
-                        : warmingC != null
-                          ? `${warmingC.toFixed(2)}°C`
-                          : '—'}
+                      {isLoading && warmingC == null ? 'Loading…' : warmingC != null ? `${warmingC.toFixed(2)}°C` : '—'}
                     </span>
                   </div>
                 </div>
-
-                <p className="mt-2 text-[10px] sm:text-xs opacity-70 text-center max-w-md">
-                  Data from a public climate API. Values update as new monthly data is released.
-                </p>
-
-                {error && (
-                  <p className="mt-2 text-[10px] sm:text-xs text-red-300">
-                    {error}
-                  </p>
-                )}
               </div>
             </div>
 
-            {/* Arrow area with safe-area friendly padding */}
-            <div className="flex items-end justify-center pb-12 sm:pb-16 md:pb-20 [padding-bottom:calc(env(safe-area-inset-bottom)+3.5rem)]">
+            <div className="flex items-end justify-center pb-12 sm:pb-20">
               <button
                 type="button"
-                className="z-50 cursor-pointer touch-manipulation animate-bounce"
+                className="z-50 cursor-pointer animate-bounce hover:text-[#ff2d55] transition-colors"
                 onClick={handleScrollDown}
-                aria-label="Scroll down"
               >
                 <AiOutlineArrowDown size={60} />
               </button>
@@ -222,8 +181,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Bottom gradient overlay */}
-      <div className="pointer-events-none absolute bottom-0 left-0 h-1/4 w-full bg-gradient-to-t from-[#0a0b1d] to-transparent" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-1/4 w-full bg-gradient-to-t from-[#0a0b1d] to-transparent z-10" />
     </div>
   );
 };
