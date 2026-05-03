@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-// Added LinkedIn and Mail icon imports
+import React, { useMemo, useState, useEffect } from 'react';
+// Note: Ensure lucide-react is installed: npm install lucide-react
 import { Mail, Linkedin } from 'lucide-react'; 
 
 const headshot = '/bayWheels_image.webp';
@@ -68,7 +68,7 @@ const Footer = () => {
     typeof window !== 'undefined' ? window.innerWidth < 768 : false
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     const onResize = () => setIsSmallScreen(window.innerWidth < 768);
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
@@ -109,34 +109,33 @@ const Footer = () => {
       <div className="container max-w-screen-xl mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-10 md:gap-14">
           
-          {/* UPDATED: Left Column (Headshot & Icons) */}
+          {/* Section: Headshot with Overlaid Icons */}
           <div className="order-1 flex flex-col items-center text-center gap-6 md:gap-8">
             <span className="text-4xl md:text-7xl text-white border-b-4 border-[#8544ff] font-bold pb-1">
               Connect with me!
             </span>
 
             <div className="relative group">
-              {/* Floating Icons at the top of the headshot */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+              {/* Floating Social Icons */}
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex gap-4 z-10">
                 <a 
                   href="https://www.linkedin.com/in/dillon-colbert-50987b1a0/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 bg-[#8544ff] rounded-full text-white shadow-lg hover:scale-110 hover:bg-[#9d6aff] transition-all duration-200"
+                  className="p-3 bg-[#8544ff] rounded-full text-white shadow-xl hover:scale-110 hover:bg-[#9d6aff] transition-all duration-200"
                   aria-label="LinkedIn Profile"
                 >
-                  <Linkedin size={20} />
+                  <Linkedin size={22} />
                 </a>
                 <a 
                   href="mailto:c.dillon@wustl.edu"
-                  className="p-2.5 bg-[#8544ff] rounded-full text-white shadow-lg hover:scale-110 hover:bg-[#9d6aff] transition-all duration-200"
+                  className="p-3 bg-[#8544ff] rounded-full text-white shadow-xl hover:scale-110 hover:bg-[#9d6aff] transition-all duration-200"
                   aria-label="Email Dillon Colbert"
                 >
-                  <Mail size={20} />
+                  <Mail size={22} />
                 </a>
               </div>
 
-              {/* Headshot */}
               <img
                 src={headshot}
                 alt="Dillon Colbert"
@@ -145,6 +144,7 @@ const Footer = () => {
             </div>
           </div>
 
+          {/* Section: Transport Poll */}
           <div className="order-2 flex-1 min-w-0 w-full md:ml-12 lg:ml-16 xl:ml-20 max-w-3xl">
             <p className="text-lg md:text-xl text-white mb-2">
               How did you get to work today?
@@ -203,6 +203,7 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Footer Navigation */}
         <div className="mt-12 md:mt-16 border-t border-white/10 pt-8 md:pt-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
             {FOOTER_LINK_GROUPS.map(({ title, links }) => (
