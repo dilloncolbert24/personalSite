@@ -1,4 +1,7 @@
 import React, { useMemo, useState } from 'react';
+// Added LinkedIn and Mail icon imports
+import { Mail, Linkedin } from 'lucide-react'; 
+
 const headshot = '/bayWheels_image.webp';
 
 const MODE_OPTIONS = ['Walk', 'Bike', 'Transit', 'Car', 'Rideshare', 'Other'];
@@ -7,7 +10,6 @@ function makeMonthKey(d = new Date()) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
 }
 
-/* Link lists (edit to your taste) */
 const FOOTER_LINK_GROUPS = [
   {
     title: 'My Organizations',
@@ -50,7 +52,6 @@ const FOOTER_LINK_GROUPS = [
   },
 ];
 
-/* Simple external link renderer */
 const ExternalFooterLink = ({ href, children }) => (
   <a
     href={href}
@@ -107,46 +108,41 @@ const Footer = () => {
     <footer className="bg-[#0a0b1d] pt-8 md:pt-16 relative z-40 isolate pointer-events-auto" id="contact">
       <div className="container max-w-screen-xl mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-10 md:gap-14">
-          <div className="order-1 flex flex-col items-center text-center gap-4 md:gap-6">
+          
+          {/* UPDATED: Left Column (Headshot & Icons) */}
+          <div className="order-1 flex flex-col items-center text-center gap-6 md:gap-8">
             <span className="text-4xl md:text-7xl text-white border-b-4 border-[#8544ff] font-bold pb-1">
               Connect with me!
             </span>
 
-            <a
-              href="mailto:c.dillon@wustl.edu"
-              aria-label="Email Dillon Colbert"
-              title="Click the photo to email me"
-              className="block"
-            >
+            <div className="relative group">
+              {/* Floating Icons at the top of the headshot */}
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+                <a 
+                  href="https://www.linkedin.com/in/dillon-colbert-50987b1a0/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 bg-[#8544ff] rounded-full text-white shadow-lg hover:scale-110 hover:bg-[#9d6aff] transition-all duration-200"
+                  aria-label="LinkedIn Profile"
+                >
+                  <Linkedin size={20} />
+                </a>
+                <a 
+                  href="mailto:c.dillon@wustl.edu"
+                  className="p-2.5 bg-[#8544ff] rounded-full text-white shadow-lg hover:scale-110 hover:bg-[#9d6aff] transition-all duration-200"
+                  aria-label="Email Dillon Colbert"
+                >
+                  <Mail size={20} />
+                </a>
+              </div>
+
+              {/* Headshot */}
               <img
                 src={headshot}
                 alt="Dillon Colbert"
-                className="w-44 h-44 md:w-64 md:h-64 rounded-full object-cover object-center border border-white/20 shadow-lg transition duration-700 cursor-pointer hover:scale-[1.02]"
+                className="w-44 h-44 md:w-64 md:h-64 rounded-full object-cover object-center border-2 border-white/10 shadow-2xl transition duration-500"
               />
-            </a>
-
-            {/* Combined button group */}
-            <div className="flex flex-col items-center gap-2">
-              <span className="inline-flex items-center text-[11px] md:text-xs px-2 py-0.5 rounded-full bg-[#8544ff] text-white shadow whitespace-nowrap">
-                Click photo to email me
-              </span>
-              
-              <a 
-                href="https://www.linkedin.com/in/dillon-colbert-50987b1a0/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center text-[11px] md:text-xs px-2 py-0.5 rounded-full bg-[#8544ff] text-white shadow whitespace-nowrap hover:bg-[#8544ff]/80 transition-colors"
-              >
-                LinkedIn Profile
-              </a>
             </div>
-
-            <p className="text-white/70 text-sm">
-              Or email:{" "}
-              <a className="underline hover:text-[#8544ff]" href="mailto:c.dillon@wustl.edu">
-                c.dillon@wustl.edu
-              </a>
-            </p>
           </div>
 
           <div className="order-2 flex-1 min-w-0 w-full md:ml-12 lg:ml-16 xl:ml-20 max-w-3xl">
