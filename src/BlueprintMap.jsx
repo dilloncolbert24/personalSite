@@ -118,8 +118,8 @@ const places = [
       "I used the subway and buses for transport and was captivated by adaptive reuses like the High Line and Dumbo, BK.",
     images: [
       { src: "/highLine.webp", caption: "The High Line" },
-      { src: "/pedPath_Manhattan.webp", caption: "Pedestrian path", color: "#000000",
-        src: "/NYCmultimodal.webp", caption: "The organized chaos of Manhattan's streets: 5th Ave & W 55th St in December 2024", color: "#000000" },
+      { src: "/pedPath_Manhattan.webp", caption: "Pedestrian path", color: "#000000"},
+      { src: "/NYCmultimodal.webp", caption: "The organized chaos of Manhattan's streets: 5th Ave & W 55th St in December 2024", color: "#000000" },
     ],
     markerIcon: makeMarkerFromReactIcon(SiMta, { size: 44, color: "#08179C" }),
   },

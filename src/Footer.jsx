@@ -1,9 +1,29 @@
 import React, { useMemo, useState, useEffect } from 'react';
-// Note: Ensure lucide-react is installed: npm install lucide-react
-import { Mail, Linkedin } from 'lucide-react'; 
+import { Mail } from 'lucide-react'; 
+
+/**
+ * Custom LinkedIn SVG Component
+ * Lucide-react removed brand icons in v1.0, so we use this inline SVG
+ * to ensure the build passes on Cloudflare without extra dependencies.
+ */
+const LinkedInIcon = ({ size = 22 }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+  >
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
 
 const headshot = '/bayWheels_image.webp';
-
 const MODE_OPTIONS = ['Walk', 'Bike', 'Transit', 'Car', 'Rideshare', 'Other'];
 
 function makeMonthKey(d = new Date()) {
@@ -109,7 +129,7 @@ const Footer = () => {
       <div className="container max-w-screen-xl mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-10 md:gap-14">
           
-          {/* Section: Headshot with Overlaid Icons */}
+          {/* Headshot & Social Icons */}
           <div className="order-1 flex flex-col items-center text-center gap-6 md:gap-8">
             <span className="text-4xl md:text-7xl text-white border-b-4 border-[#8544ff] font-bold pb-1">
               Connect with me!
@@ -125,7 +145,7 @@ const Footer = () => {
                   className="p-3 bg-[#8544ff] rounded-full text-white shadow-xl hover:scale-110 hover:bg-[#9d6aff] transition-all duration-200"
                   aria-label="LinkedIn Profile"
                 >
-                  <Linkedin size={22} />
+                  <LinkedInIcon size={22} />
                 </a>
                 <a 
                   href="mailto:c.dillon@wustl.edu"
@@ -144,7 +164,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Section: Transport Poll */}
+          {/* Mode Poll Section */}
           <div className="order-2 flex-1 min-w-0 w-full md:ml-12 lg:ml-16 xl:ml-20 max-w-3xl">
             <p className="text-lg md:text-xl text-white mb-2">
               How did you get to work today?
@@ -203,7 +223,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Footer Navigation */}
         <div className="mt-12 md:mt-16 border-t border-white/10 pt-8 md:pt-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
             {FOOTER_LINK_GROUPS.map(({ title, links }) => (
