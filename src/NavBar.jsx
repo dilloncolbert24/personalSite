@@ -135,7 +135,7 @@ const NavBar = () => {
               {/* Résumé */}
               <div className="flex flex-col items-end gap-2">
                 <a
-                  href="/resume.pdf"
+                  href="/ColbertDillon_Resume_NYU.pdf"
                   download
                   className="btn-outline inline-flex items-center gap-2 rounded-full px-3 h-10 text-sm font-semibold tracking-wide leading-none"
                 >
