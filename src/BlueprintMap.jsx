@@ -1,5 +1,6 @@
+// BlueprintMap.js
 import React, { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "leaflet.fullscreen/Control.FullScreen.css";
@@ -18,6 +19,19 @@ const fullscreenStyle = `
   .leaflet-control-container .leaflet-control-fullscreen {
     display: block !important;
     z-index: 1000 !important;
+  }
+  /* Optional sleek customization for Tooltip layout */
+  .leaflet-tooltip-custom {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255,255,255,0.15) !important;
+    border-radius: 0.375rem !important;
+    padding: 0.25rem 0.5rem !important;
+    font-weight: 500 !important;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+  }
+  .leaflet-tooltip-custom::before {
+    border-top-color: #1e293b !important;
   }
 `;
 if (typeof document !== "undefined" && !document.getElementById("fullscreen-style")) {
@@ -75,38 +89,36 @@ const makeMarkerFromReactIcon = (Icon, { size = 40, color = "#ef4444" } = {}) =>
   });
 };
 
-/* Places (kept intact) */
+/* Places */
 const places = [
   {
     id: 0,
-    coords: [38.9792, -90.9807], // Troy, MO
+    coords: [38.9792, -90.9807],
     title: "Troy, MO",
     date: "Hometown",
-    description:
-      "Where it all started — my roots in a small town shaped how I see the connection between community and built environment.",
+    description: "Where it all started — my roots in a small town shaped how I see the connection between community and built environment.",
     images: [
       { src: "/pw-troy-1909.jpg", caption: "Troy in 1909. Historic downtowns are super fascinating to me now, especially since it's impossible to build them with current regulation in most places. My work in parking reform addresses this.", color: "#000000" },
-      { src: "/creek.webp", caption: "This creek near my house grew my environmental connection with water. I  attribute my fascination with the Mississippi and working with stormwater management to it.", color: "#00000" },
+      { src: "/creek.webp", caption: "This creek near my house grew my environmental connection with water. I attribute my fascination with the Mississippi and working with stormwater management to it.", color: "#00000" },
       { src: "/driveway.webp", caption: "A nice wooded walk across from my house set a high standard for green space in my life.", color: "#000000" }
     ],
-    markerIcon: makeMarkerFromReactIcon(FaHouseChimney, { size: 44, color: "#000000" }),
+    markerIcon: makeMarkerFromReactIcon(FaHouseChimney, { size: 44, color: "#a8a29e" }),
   },
   {
     id: 1,
     coords: [38.627, -90.199],
     title: "Downtown St. Louis, MO",
     date: "May 2025–Present",
-    description:
-      "After graduating, I moved Downtown to live car-free/car light. I'm now able to walk, bike, or take public transit for a majority of trips. Topics I'm currently researching in Downtown are urban growth models, parking reform, and highway removal.",
-      images: [
-        { src: "/riverfrontParking.webp", caption: "Rivefront inactivation is a major issue in St. Louis, where much of its historic levee and postindustrial land sits vacant and underutilized.", color: "#000000" },
-        { src: "/archDivide.webp", caption: "I-44 rips through Downtown, dividing the Arch Grounds and the rest of Downtown. Many cities have explored highway removal or rerouting, and I believe St. Louis could follow suit.", color: "#000000"},
-        { src: "/11th&locust.webp", caption: "Off-street parking makes up 27% of St. Louis's central city, according to the Parking Reform Network's Parking Lot Map.", color: "#000000"},
-        { src: "/metroLL.webp", caption: "Housed inside the Eads Bridge, the oldest steel-frame bridge in the world, Laclede's Landing Metrolink station has one of my favorite views of the Arch.", color: "#000000"},
-        { src: "/jazz.webp", caption: "Laclede's Landing, a historic district in Downtown with a rich music history, has a phenomenal amount of potential. I hosted this jazz jam through my club in Summer 2025, with the first being in Oct 2024. I am now volunteering in the district's design committee. ", color: "#000000"},
-        { src: "/sundeckers.webp", caption: "Even Mission Dolores Park, not even in the top 5 largest municipal parks in San Francisco, was incredibly busy on a non-event day.", color: "#000000"},
-        { src: "/cityMuseumLot.webp", caption: "Even Mission Dolores Park, not even in the top 5 largest municipal parks in San Francisco, was incredibly busy on a non-event day.", color: "#000000"}
-      ],
+    description: "After graduating, I moved Downtown to live car-free/car light. I'm now able to walk, bike, or take public transit for a majority of trips. Topics I'm currently researching in Downtown are urban growth models, parking reform, and highway removal.",
+    images: [
+      { src: "/riverfrontParking.webp", caption: "Rivefront inactivation is a major issue in St. Louis, where much of its historic levee and postindustrial land sits vacant and underutilized.", color: "#000000" },
+      { src: "/archDivide.webp", caption: "I-44 rips through Downtown, dividing the Arch Grounds and the rest of Downtown. Many cities have explored highway removal or rerouting, and I believe St. Louis could follow suit.", color: "#000000"},
+      { src: "/11th&locust.webp", caption: "Off-street parking makes up 27% of St. Louis's central city, according to the Parking Reform Network's Parking Lot Map.", color: "#000000"},
+      { src: "/metroLL.webp", caption: "Housed inside the Eads Bridge, the oldest steel-frame bridge in the world, Laclede's Landing Metrolink station has one of my favorite views of the Arch.", color: "#000000"},
+      { src: "/jazz.webp", caption: "Laclede's Landing, a historic district in Downtown with a rich music history, has a phenomenal amount of potential. I hosted this jazz jam through my club in Summer 2025, with the first being in Oct 2024. I am now volunteering in the district's design committee. ", color: "#000000"},
+      { src: "/sundeckers.webp", caption: "Even Mission Dolores Park, not even in the top 5 largest municipal parks in San Francisco, was incredibly busy on a non-event day.", color: "#000000"},
+      { src: "/cityMuseumLot.webp", caption: "Even Mission Dolores Park, not even in the top 5 largest municipal parks in San Francisco, was incredibly busy on a non-event day.", color: "#000000"}
+    ],
     markerIcon: makeMarkerFromReactIcon(FaMapPin, { size: 44, color: "#ef4444" }),
   },
   {
@@ -114,82 +126,155 @@ const places = [
     coords: [40.7128, -74.006],
     title: "New York City, NY",
     date: "Dec 2024, Aug 2025",
-    description:
-      "I used the subway and buses for transport and was captivated by adaptive reuses like the High Line and Dumbo, BK.",
+    description: "I used the subway and buses for transport and was captivated by adaptive reuses like the High Line and Dumbo, BK.",
     images: [
       { src: "/highLine.webp", caption: "The High Line" },
       { src: "/pedPath_Manhattan.webp", caption: "Pedestrian path", color: "#000000"},
       { src: "/NYCmultimodal.webp", caption: "The organized chaos of Manhattan's streets: 5th Ave & W 55th St in December 2024", color: "#000000" },
     ],
-    markerIcon: makeMarkerFromReactIcon(SiMta, { size: 44, color: "#08179C" }),
+    markerIcon: makeMarkerFromReactIcon(SiMta, { size: 44, color: "#38bdf8" }),
   },
   {
     id: 3,
     coords: [37.7749, -122.4194],
     title: "San Francisco, CA",
     date: "2020",
-    description:
-      "Observed parklet culture and strong BRT planning efforts. Influenced my ideas for people-first streets in St. Louis.",
+    description: "Observed parklet culture and strong BRT planning efforts. Influenced my ideas for people-first streets in St. Louis.",
     images: [
       { src: "/strawberryHill.webp", caption: "Golden Gate Park, one of the truest urban forests I've ever seen. A true flagship park and receiving of my highest praise.", color: "#000000" },
       { src: "/salesforcePark.webp", caption: "Salesforce Park, an elevated urban park in Downtown San Francisco. This park defies the typical definition of urban green space and provides an excellent third space for residents, employees, and visitors alike.", color: "#000000"},
       { src: "/missionDolores.webp", caption: "Even Mission Dolores Park, not even in the top 5 largest municipal parks in San Francisco, was incredibly busy on a non-event day.", color: "#000000"}
     ],
-    markerIcon: makeMarkerFromReactIcon(MdDirectionsWalk, { size: 44, color: "#FF4F00" }),
+    markerIcon: makeMarkerFromReactIcon(MdDirectionsWalk, { size: 44, color: "#f97316" }),
   },
   {
     id: 4,
     coords: [19.4326, -99.1332],
     title: "Ciudad de Mexico, MX",
     date: "2019",
-    description:
-      "CDMX is alive, exuding energy, vibrancy, and the volume of foot traffic to match. It does so through fantastic outdoor dining, public squares, cafe culture, and live music, among many factors. I rode my first BRT line here, and it just so happens that theirs is world class.",
-      images: [
-        { src: "/reforma.webp", caption: "Paseo de la Reforma, the main artery of CDMX, closes to cars every Sunday.", color: "#000000" },
-        { src: "/reformaAerial.webp", caption: "Here is a better view of Paseo de la Reforma from the Chapultepec Castle.", color: "#000000"},
-        { src: "/centroHistorico.webp", caption: "The historic center began construction in 1521 and functions similarly to many European city centers. Here is where a lot of political activism, cultural displays, and tourism exist.", color: "#000000"},
-        { src: "/bikingCDMX.webp", caption: "I frequently used Ecobici, CDMX's public (so impressive) bikeshare system to get around. It's relatively inexpensive and has great access throughout the city.", color: "#000000"},
-        { src: "/brtCDMX.webp", caption: "The CDMX BRT system is among the best I've used or studied in the world. Many of the lines have 2 minute headways with fully dedicated corridors and are absolutely spotless.", color: "#000000"},
-      ],
-    markerIcon: makeMarkerFromReactIcon(FaBusAlt, { size: 44, color: "#F245A1" }),
+    description: "CDMX is alive, exuding energy, vibrancy, and the volume of foot traffic to match. It does so through fantastic outdoor dining, public squares, cafe culture, and live music, among many factors. I rode my first BRT line here, and it just so happens that theirs is world class.",
+    images: [
+      { src: "/reforma.webp", caption: "Paseo de la Reforma, the main artery of CDMX, closes to cars every Sunday.", color: "#000000" },
+      { src: "/reformaAerial.webp", caption: "Here is a better view of Paseo de la Reforma from the Chapultepec Castle.", color: "#000000"},
+      { src: "/centroHistorico.webp", caption: "The historic center began construction in 1521 and functions similarly to many European city centers. Here is where a lot of political activism, cultural displays, and tourism exist.", color: "#000000"},
+      { src: "/bikingCDMX.webp", caption: "I frequently used Ecobici, CDMX's public (so impressive) bikeshare system to get around. It's relatively inexpensive and has great access throughout the city.", color: "#000000"},
+      { src: "/brtCDMX.webp", caption: "The CDMX BRT system is among the best I've used or studied in the world. Many of the lines have 2 minute headways with fully dedicated corridors and are absolutely spotless.", color: "#000000"},
+    ],
+    markerIcon: makeMarkerFromReactIcon(FaBusAlt, { size: 44, color: "#ec4899" }),
   },
   {
     id: 5,
     coords: [49.2798, -123.108763],
     title: "Vancouver, BC, CA",
     date: "2025",
-    description:
-      "A true city of new urbanism. Much of the architecture was modern, which I'm not as fond of as historic, but everything was designed so intentionally for the human scale. ",
+    description: "A true city of new urbanism. Much of the architecture was modern, which I'm not as fond of as historic, but everything was designed so intentionally for the human scale. ",
     images: [
       { src: "/vancouverParklet.webp", caption: "Vancouver parklet" , color: "#000000"},
       { src: "/vancouver_bikeStreet.webp", caption: "Bike-priority street" , color: "#000000"},
       { src: "/vancouverBikeshare.webp", caption: "Bike share station" , color: "#000000"},
     ],
-    markerIcon: makeMarkerFromReactIcon(LuCircleParkingOff, { size: 44, color: "#000000" }),
+    markerIcon: makeMarkerFromReactIcon(LuCircleParkingOff, { size: 44, color: "#22c55e" }),
   },
   {
     id: 6,
     coords: [1.299195, 103.774614],
     title: "Singapore",
     date: "May/June 2023",
-    description:
-      "Learned from Singapore’s transport integration and public space planning.",
+    description: "Learned from Singapore’s transport integration and public space planning.",
     images: [{ src: "/singapore.jpg", caption: "Singapore streetscape", color: "#000000" }],
-    markerIcon: makeMarkerFromReactIcon(PiPlantBold, { size: 44, color: "#097969" }),
+    markerIcon: makeMarkerFromReactIcon(PiPlantBold, { size: 44, color: "#10b981" }),
   },
   {
     id: 7,
     coords: [52.367348, 4.867048],
     title: "Amsterdam, NL",
     date: "Feb 2019, Mar 2024",
-    description:
-      "My desire for walkability and bikeability originated here.",
+    description: "My desire for walkability and bikeability originated here.",
     images: [{ src: "/images/amsterdam.jpg", caption: "Cycling culture", color: "#000000" }],
-    markerIcon: makeMarkerFromReactIcon(MdDirectionsBike, { size: 44, color: "#003DA5" }),
+    markerIcon: makeMarkerFromReactIcon(MdDirectionsBike, { size: 44, color: "#3b82f6" }),
   },
 ];
 
-/* Slideshow */
+/* Internal Map Event Handler Subcomponent */
+const MapController = () => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!map) return;
+
+    // Append Fullscreen manual control seamlessly via plugin hooks
+    if (!map.fullscreenControl) {
+      L.control.fullscreen({ position: "bottomright" }).addTo(map);
+    }
+
+    const mapContainerElement = map.getContainer();
+
+    // REQUIRE CLICK INTERACTION: Keeps scrolling past container fluid
+    const activateInteractions = () => {
+      map.scrollWheelZoom.enable();
+      map.dragging.enable();
+    };
+
+    // DEACTIVATE ON LEAVE: Yields wheel capture focus back to document tree
+    const deactivateInteractions = () => {
+      map.scrollWheelZoom.disable();
+    };
+
+    // Lock interactions out by default on load
+    map.scrollWheelZoom.disable();
+
+    mapContainerElement.addEventListener("click", activateInteractions);
+    mapContainerElement.addEventListener("mouseleave", deactivateInteractions);
+
+    return () => {
+      mapContainerElement.removeEventListener("click", activateInteractions);
+      mapContainerElement.removeEventListener("mouseleave", deactivateInteractions);
+    };
+  }, [map]);
+
+  return null;
+};
+
+/* Individual Marker Wrapper to encapsulate independent FlyTo routines */
+const InteractiveMarker = ({ place }) => {
+  const map = useMap();
+
+  return (
+    <Marker
+      position={place.coords}
+      icon={place.markerIcon || makeMarkerIcon()}
+      eventHandlers={{
+        click: () => {
+          // Dynamic zoom depth calculation: zoom tight into city infrastructure grids (level 15)
+          map.flyTo(place.coords, 15, {
+            duration: 1.75,
+            easeLinearity: 0.25
+          });
+        }
+      }}
+    >
+      {/* Requirement 4: High performance native tooltip hover with semantic label parameters */}
+      <Tooltip 
+        direction="top" 
+        offset={[0, -40]} 
+        className="leaflet-tooltip-custom"
+      >
+        {place.title}
+      </Tooltip>
+      
+      <Popup>
+        <div className="text-black max-w-[260px]" onClick={(e) => e.stopPropagation()}>
+          <h3 className="font-bold text-lg">{place.title}</h3>
+          <p className="text-sm text-gray-700 mb-1">{place.date}</p>
+          <p className="text-sm mb-2">{place.description}</p>
+          <Slideshow images={place.images} />
+        </div>
+      </Popup>
+    </Marker>
+  );
+};
+
+/* Slideshow Component (Kept Intact) */
 const Slideshow = ({ images, interval = 5000 }) => {
   const [index, setIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -231,10 +316,7 @@ const Slideshow = ({ images, interval = 5000 }) => {
           />
         </AnimatePresence>
         {images[index].caption && (
-          <p
-            className="text-center text-sm mt-2"
-            style={{ color: images[index].color || "#e5e7eb" }}
-          >
+          <p className="text-center text-sm mt-2" style={{ color: images[index].color || "#e5e7eb" }}>
             {images[index].caption}
           </p>
         )}
@@ -242,19 +324,13 @@ const Slideshow = ({ images, interval = 5000 }) => {
       {images.length > 1 && (
         <>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              prev();
-            }}
+            onClick={(e) => { e.stopPropagation(); prev(); }}
             className="absolute top-1/2 left-2 -translate-y-1/2 bg-black/40 text-white px-3 py-2 rounded-full hover:bg-black/60 z-10"
           >
             ◀
           </button>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              next();
-            }}
+            onClick={(e) => { e.stopPropagation(); next(); }}
             className="absolute top-1/2 right-2 -translate-y-1/2 bg-black/40 text-white px-3 py-2 rounded-full hover:bg-black/60 z-10"
           >
             ▶
@@ -268,23 +344,9 @@ const Slideshow = ({ images, interval = 5000 }) => {
     <>
       <SlideshowContent />
       {isModalOpen && (
-        <div
-          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
-          onClick={() => setIsModalOpen(false)}
-        >
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsModalOpen(false);
-            }}
-            className="absolute top-6 right-6 text-white text-4xl font-bold"
-          >
-            ✕
-          </button>
-          <div
-            className="w-full h-full flex items-center justify-center"
-            onClick={(e) => e.stopPropagation()}
-          >
+        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50" onClick={() => setIsModalOpen(false)}>
+          <button onClick={(e) => { e.stopPropagation(); setIsModalOpen(false); }} className="absolute top-6 right-6 text-white text-4xl font-bold">✕</button>
+          <div className="w-full h-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
             <SlideshowContent full />
           </div>
         </div>
@@ -293,66 +355,44 @@ const Slideshow = ({ images, interval = 5000 }) => {
   );
 };
 
-/* Main component */
+/* Main Component Architecture */
 const BlueprintMap = () => {
   return (
-    <section
-      id="blueprint"
-      className="bg-[#0a0b1d] text-white py-16 md:py-24 scroll-mt-24"
-    >
+    <section id="blueprint" className="bg-[#0a0b1d] text-white py-16 md:py-24 scroll-mt-24">
       <div className="container max-w-screen-xl mx-auto px-4">
         <h2 className="text-4xl md:text-6xl font-bold mb-10 text-center">
           Mapping my Trajectory
         </h2>
 
-        {/* Use relative (not overflow-hidden) so Leaflet controls aren't clipped */}
-        <div className="h-[500px] w-full rounded-lg shadow-lg relative">
+        {/* Outer Wrapper with explicit dynamic selection properties */}
+        <div className="h-[500px] w-full rounded-lg shadow-lg relative overflow-hidden border border-white/10 group">
+          
+          {/* Subtle Interaction Indicator Hint Overlay */}
+          <div className="absolute inset-0 bg-black/30 group-hover:bg-transparent pointer-events-none transition-colors duration-300 z-[401] flex items-center justify-center">
+            <span className="bg-slate-900/80 border border-white/10 backdrop-blur-sm text-xs font-medium tracking-wider uppercase px-3 py-1.5 rounded opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+              Click Map to Interact
+            </span>
+          </div>
+
           <MapContainer
-            center={[39.5, -98.35]}
-            zoom={4}
+            center={[25.0, -40.0]} // Global vantage starting coordinates centered across regions
+            zoom={2.5}
+            minZoom={2}
             style={{ height: "100%", width: "100%" }}
             scrollWheelZoom={false}
-            /* Enable fullscreen control via plugin map options */
-            fullscreenControl={true}
-            fullscreenControlOptions={{ position: "bottomright" }}
-            whenCreated={(map) => {
-              // If for some reason the option above didn't attach the control, add it manually:
-              if (!map.fullscreenControl) {
-                L.control.fullscreen({ position: "bottomright" }).addTo(map);
-              }
-
-              // Require ctrl/cmd to zoom via wheel
-              map.on("wheel", (e) => {
-                if (e.originalEvent.ctrlKey || e.originalEvent.metaKey) {
-                  map.scrollWheelZoom.enable();
-                } else {
-                  map.scrollWheelZoom.disable();
-                }
-              });
-            }}
+            fullscreenControl={false} // Controller manages initialization safely
           >
+            {/* Requirement 1: Upgraded tile engine to CartoDB Dark Matter for ultra-modern aesthetic */}
             <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
             />
+            
+            {/* Internal controller managing scroll-trapping logic layers safely */}
+            <MapController />
+
             {places.map((p) => (
-              <Marker
-                key={p.id}
-                position={p.coords}
-                icon={p.markerIcon || makeMarkerIcon()}
-              >
-                <Popup>
-                  <div
-                    className="text-black max-w-[260px]"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <h3 className="font-bold text-lg">{p.title}</h3>
-                    <p className="text-sm text-gray-700 mb-1">{p.date}</p>
-                    <p className="text-sm mb-2">{p.description}</p>
-                    <Slideshow images={p.images} />
-                  </div>
-                </Popup>
-              </Marker>
+              <InteractiveMarker key={p.id} place={p} />
             ))}
           </MapContainer>
         </div>
