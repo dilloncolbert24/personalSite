@@ -82,8 +82,8 @@ const Projects = () => {
       <div className="container max-w-screen-xl mx-auto px-4">
         <h2 className="text-7xl font-bold mb-16 text-center text-white">My Projects</h2>
         
-        {/* Slide Deck Desktop Interface */}
-        <div className="relative max-w-4xl mx-auto flex items-center justify-between">
+        {/* Outer Wrapper: Keeps arrows positioned relative to the deck */}
+        <div className="relative max-w-4xl mx-auto flex items-center">
           
           {/* Left Arrow Button (Hidden on Mobile) */}
           <button
@@ -94,9 +94,22 @@ const Projects = () => {
             <FaChevronLeft className="text-xl" />
           </button>
 
-          {/* Active Project Card Wrapper */}
-          <div className="w-full select-none">
-            <Project {...projectsData[currentIndex]} size="xl" />
+          {/* Carousel Viewport Window */}
+          <div className="w-full overflow-hidden select-none rounded-lg">
+            {/* 
+              THE FIXED TRACK: Renders all slides side-by-side. 
+              Moving slides is now a hardware-accelerated transform calculation instead of DOM manipulation.
+            */}
+            <div 
+              className="flex transition-transform duration-500 ease-out transform-gpu will-change-transform"
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+              {projectsData.map((project, index) => (
+                <div key={index} className="w-full flex-shrink-0">
+                  <Project {...project} size="xl" />
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Right Arrow Button (Hidden on Mobile) */}
