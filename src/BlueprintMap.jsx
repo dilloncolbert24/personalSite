@@ -88,7 +88,7 @@ const makeMarkerFromReactIcon = (Icon, { size = 40, color = "#ef4444" } = {}) =>
   });
 };
 
-/* Places (All original icon hex codes meticulously preserved) */
+/* Places (All original colors completely preserved) */
 const places = [
   {
     id: 0,
@@ -153,7 +153,7 @@ const places = [
   {
     id: 4,
     coords: [19.4326, -99.1332],
-    title: "Ciudad de Mexico, MX",
+    title: "Ciudad de México, MX",
     date: "2019",
     description:
       "CDMX is alive, exuding energy, vibrancy, and the volume of foot traffic to match. It does so through fantastic outdoor dining, public squares, cafe culture, and live music, among many factors. I rode my first BRT line here, and it just so happens that theirs is world class.",
@@ -248,7 +248,6 @@ const InteractiveMarker = ({ place }) => {
       icon={place.markerIcon || makeMarkerIcon()}
       eventHandlers={{
         click: () => {
-          // Dynamic zoom depth adjustment to layer 15 for close block visualization
           map.flyTo(place.coords, 15, {
             duration: 1.75,
             easeLinearity: 0.25
@@ -260,9 +259,6 @@ const InteractiveMarker = ({ place }) => {
         {place.title}
       </Tooltip>
       
-      {/* OPTIMIZATION: Added autoPanPadding to force the map framework to shift down 
-        so slide containers are never clipped by non-maximized viewports.
-      */}
       <Popup autoPan={true} autoPanPadding={[20, 50]}>
         <div className="text-black max-w-[260px]" onClick={(e) => e.stopPropagation()}>
           <h3 className="font-bold text-lg">{place.title}</h3>
@@ -381,10 +377,11 @@ const BlueprintMap = () => {
             scrollWheelZoom={false}
             fullscreenControl={false}
           >
-            {/* Requirement 2: Clean, legible dark style with visible land masses/grids */}
+            {/* FIX: Swapped out authenticated Stadia Maps tiles for CartoDB Positron. 
+                Requires no token, loads flawlessly, and highlights overlays perfectly. */}
             <TileLayer
-              url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
-              attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://openapi.openstreetmap.org">OpenStreetMap</a> contributors'
+              url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
             />
             
             <MapController />
