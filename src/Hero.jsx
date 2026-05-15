@@ -114,7 +114,7 @@ const Hero = () => {
   aria-hidden="true"
 >
   {/* The leading "/" is crucial for Cloudflare to find the file */}
-  <source src="/trainVideo.mp4" type="video/mp4" />
+  <source src="/trainVideo.webm" type="video/webm" />
 </video>
 
       {/* 3. Dark overlay to ensure white text is readable against a busy video */}
