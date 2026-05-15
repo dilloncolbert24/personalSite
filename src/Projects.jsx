@@ -33,7 +33,7 @@ const Projects = () => {
       size: 'sm',
     },
     {
-      image: '/garmentDistrict.jpg',
+      image: '/garmentDistrict.webp',
       shortDescription: 'Analyzing data on off-street parking',
       title: 'Parking Reform in Downtown',
       longDescription: 'Collected and analyzed data on parking in the Washington Avenue Garment District...',
