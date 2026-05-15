@@ -1,5 +1,6 @@
 // Projects.js
-import React from 'react';
+import React, { useState } from 'react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 import Project from './Project';
 
 const Projects = () => {
@@ -62,29 +63,84 @@ const Projects = () => {
       timeSpent: 'Jun 2024 - Current',
       size: 'xl',
     },
-
   ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % projectsData.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? projectsData.length - 1 : prevIndex - 1
+    );
+  };
 
   return (
     <section className="bg-[#0a0b1d] py-16" id="projects">
       <div className="container max-w-screen-xl mx-auto px-4">
-        <h2 className="text-7xl font-bold mb-12 text-center text-white">My Projects</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
-          {projectsData.map((project, index) => (
-            <div
+        <h2 className="text-7xl font-bold mb-16 text-center text-white">My Projects</h2>
+        
+        {/* Slide Deck Desktop Interface */}
+        <div className="relative max-w-4xl mx-auto flex items-center justify-between">
+          
+          {/* Left Arrow Button (Hidden on Mobile) */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-[-5rem] z-20 hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 hover:scale-105 transition duration-200 backdrop-blur-sm border border-white/10"
+            aria-label="Previous Slide"
+          >
+            <FaChevronLeft className="text-xl" />
+          </button>
+
+          {/* Active Project Card Wrapper */}
+          <div className="w-full select-none">
+            <Project {...projectsData[currentIndex]} size="xl" />
+          </div>
+
+          {/* Right Arrow Button (Hidden on Mobile) */}
+          <button
+            onClick={nextSlide}
+            className="absolute right-[-5rem] z-20 hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 hover:scale-105 transition duration-200 backdrop-blur-sm border border-white/10"
+            aria-label="Next Slide"
+          >
+            <FaChevronRight className="text-xl" />
+          </button>
+        </div>
+
+        {/* Mobile Navigation Row (Visible only on small screens) */}
+        <div className="flex md:hidden justify-center items-center space-x-8 mt-6">
+          <button
+            onClick={prevSlide}
+            className="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 transition active:scale-95"
+            aria-label="Previous Slide"
+          >
+            <FaChevronLeft className="text-lg" />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 transition active:scale-95"
+            aria-label="Next Slide"
+          >
+            <FaChevronRight className="text-lg" />
+          </button>
+        </div>
+
+        {/* Navigation Indicator Dots */}
+        <div className="flex justify-center space-x-2.5 mt-8">
+          {projectsData.map((_, index) => (
+            <button
               key={index}
-              className={`${
-                project.size === 'sm'
-                  ? 'sm:col-span-1'
-                  : project.size === 'lg'
-                  ? 'sm:col-span-2'
-                  : 'sm:col-span-2 lg:col-span-3'
+              onClick={() => setCurrentIndex(index)}
+              className={`h-2 transition-all duration-300 rounded-full ${
+                currentIndex === index ? 'w-8 bg-red-500' : 'w-2 bg-white/30 hover:bg-white/50'
               }`}
-            >
-              <Project {...project} />
-            </div>
+              aria-label={`Go to slide ${index + 1}`}
+            />
           ))}
         </div>
+
       </div>
     </section>
   );
