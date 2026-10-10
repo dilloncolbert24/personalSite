@@ -2,6 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- /psll (no slash) can fall back to this page; send it to the static PSLL dashboard in public/psll/. -->
+    <script>if (location.pathname === "/psll") location.replace("/psll/" + location.search + location.hash);</script>
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dillon Colbert's Portfolio</title>
