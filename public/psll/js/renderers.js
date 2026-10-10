@@ -46,6 +46,27 @@ function renderMatrix({ sites, rows }) {
   return el("div", { class: "table-wrap matrix" }, el("table", {}, thead, tbody));
 }
 
+// Text cards (stage 4): blocks are {h} | {p} | {list}; references are listed under the text.
+function renderArticle({ blocks }) {
+  const body = el("div", { class: "article" });
+  for (const b of blocks) {
+    if (b.h) body.append(el("h4", { text: b.h }));
+    else if (b.p) body.append(el("p", { text: b.p }));
+    else if (b.list) body.append(el("ul", {}, ...b.list.map((t) => el("li", { text: t }))));
+  }
+  return body;
+}
+
+function renderReferences(refs) {
+  const items = refs.map((r) => {
+    const href = r.doi ? `https://doi.org/${r.doi}` : r.url;
+    const link = href ? el("a", { href, target: "_blank", rel: "noopener", text: r.doi ? `doi:${r.doi}` : "link" }) : null;
+    const lib = r.in_library ? el("span", { class: "chip", text: "In team library" }) : null;
+    return el("li", {}, `${r.cite} `, link, lib);
+  });
+  return el("details", { class: "refs" }, el("summary", { text: `References (${refs.length})` }), el("ol", {}, ...items));
+}
+
 // Plotly charts are tracked so they can be re-themed / resized without refetching.
 const livePlots = new Map(); // node -> figure spec
 
@@ -103,6 +124,9 @@ export function renderCard(spec) {
   } else if (spec.kind === "matrix") {
     card.classList.add("wide");
     card.append(renderMatrix(spec.payload));
+  } else if (spec.kind === "article") {
+    card.append(renderArticle(spec.payload));
+    if (spec.payload.references?.length) card.append(renderReferences(spec.payload.references));
   } else {
     card.append(renderTable(spec.table));
   }

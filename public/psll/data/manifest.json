@@ -1,7 +1,7 @@
 {
   "project": "PSLL — Public Space as a Living Lab",
   "research_question": "Does the spatial intervention coincide with observable changes in how people move through, occupy, and use the study area?",
-  "generated_at": "2026-10-09T15:20:50",
+  "generated_at": "2026-10-10T15:00:13",
   "synthetic": true,
   "sites": [
     "Space A",
@@ -22,6 +22,11 @@
       "id": 3,
       "title": "Put everything together",
       "prompt": "Where does the evidence converge or diverge? What can — and can't — we claim?"
+    },
+    {
+      "id": 4,
+      "title": "So what next?",
+      "prompt": "If you ran PSLL in your own city next month, what would you keep, what would you change, and who would you invite to collect the data?"
     }
   ],
   "figures": [
@@ -249,6 +254,60 @@
       "kind": "plotly",
       "backup": false,
       "exploratory": true
+    },
+    {
+      "id": "s4_where_we_stand",
+      "stage": 4,
+      "layer": "Established literature",
+      "title": "Where a pop-up study like PSLL sits",
+      "kind": "article",
+      "backup": false,
+      "exploratory": false
+    },
+    {
+      "id": "s4_carry_forward",
+      "stage": 4,
+      "layer": "Methods",
+      "title": "What to carry forward from this round",
+      "kind": "article",
+      "backup": false,
+      "exploratory": false
+    },
+    {
+      "id": "s4_hometown",
+      "stage": 4,
+      "layer": "Expansion",
+      "title": "Take it home: PSLL in your hometown",
+      "kind": "article",
+      "backup": false,
+      "exploratory": false
+    },
+    {
+      "id": "s4_citizen_science",
+      "stage": 4,
+      "layer": "Emerging literature",
+      "title": "Going crowdsourced: a citizen-science PSLL",
+      "kind": "article",
+      "backup": false,
+      "exploratory": false
+    },
+    {
+      "id": "s4_wearables",
+      "stage": 4,
+      "layer": "Emerging literature",
+      "title": "Smartwatch or chest strap: what data is good enough?",
+      "kind": "article",
+      "backup": false,
+      "exploratory": false
+    },
+    {
+      "id": "s4_ethics",
+      "stage": 4,
+      "layer": "Ethics",
+      "title": "Ground rules for citizen data",
+      "kind": "article",
+      "backup": false,
+      "exploratory": false
     }
   ],
   "qc": [

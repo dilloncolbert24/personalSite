@@ -134,6 +134,16 @@ th { color: var(--text-muted); font-weight: 600; position: sticky; top: 0; backg
 .matrix .tag.unfavorable { color: var(--unfavorable); }
 .matrix tr.context td { background: color-mix(in srgb, var(--grid) 40%, transparent); }
 
+.article { color: var(--text-secondary); font-size: 14px; max-width: 75ch; }
+.article p { margin: 8px 0; }
+.article h4 { margin: 14px 0 4px; font-size: 14px; color: var(--text-primary); }
+.article ul { margin: 6px 0; padding-left: 20px; }
+.article li { margin: 4px 0; }
+.refs ol { margin: 8px 0 0; padding-left: 20px; color: var(--text-secondary); }
+.refs li { margin: 6px 0; overflow-wrap: anywhere; }
+.refs a { color: var(--series-1); }
+.refs .chip { margin-left: 6px; white-space: nowrap; }
+
 .qc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
 .qc-list li { padding: 8px 12px; border-radius: 8px; font-size: 14px; background: var(--surface-1); border: 1px solid var(--border); }
 .qc-list li.error { background: var(--error-bg); color: var(--error-ink); border-color: transparent; }
